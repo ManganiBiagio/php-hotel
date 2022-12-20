@@ -104,14 +104,14 @@ foreach ($hotels as $hotel) {
             <div class="col-6">
                 <form method="GET" class="row gx-3 gy-2 align-items-center justify-content-center">
                     <div class="col-sm-3 d-flex align-items-center">
-                        <label>Voto:</label>
+                        <label class="me-2">Voto:</label>
                         <input type="number" class="form-control" name="voto" id="specificSizeInputName" placeholder="..." value="<?php echo $_GET["voto"] ?? '' ?>">
                     </div>
 
 
                     <div class="col-auto">
                         <div class="form-check">
-                            <input class="form-check-input" name="isParcheggio" type="checkbox" id="autoSizingCheck2" <?php  if(!empty($_GET["isParcheggio"]))echo "checked" ?> >
+                            <input class="form-check-input " name="isParcheggio" type="checkbox" id="autoSizingCheck2" <?php  if(!empty($_GET["isParcheggio"]))echo "checked" ?> >
                             <label class="form-check-label" for="autoSizingCheck2">
                                 Parcheggio
                             </label>
