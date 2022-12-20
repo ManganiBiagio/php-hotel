@@ -40,6 +40,47 @@ $hotels = [
 
 ];
 
+$filteredList = [];
+
+foreach ($hotels as $hotel) {
+    $toPush = false;
+
+    if (empty($_GET["voto"]) && empty($_GET["isParcheggio"])) {
+        $toPush = true;
+    }
+
+
+    if(!empty($_GET["voto"]) && !empty($_GET["isParcheggio"])){
+        if ($hotel["vote"] >= $_GET["voto"]) {
+            if ($hotel["parking"] == $_GET["isParcheggio"]) {
+                $toPush = true;
+            }
+            
+      }
+
+    }
+    elseif (!empty($_GET["voto"])) {
+        if ($hotel["vote"] >= $_GET["voto"]) {
+              $toPush = true;  
+        }
+    }elseif(!empty($_GET["isParcheggio"])) {
+        if ($hotel["parking"] == $_GET["isParcheggio"]) {
+            $toPush = true;
+        }
+    }
+
+
+    // if(empty($_GET["voto"])){
+    //     $toPush = true;
+    // }
+
+
+
+    if ($toPush) {
+        $filteredList[] = $hotel;
+    }
+}
+
 ?>
 
 
@@ -59,21 +100,45 @@ $hotels = [
 
     <div class="container">
         <h1 class="mb-3">Booltel</h1>
+        <div class="row justify-content-center mb-3">
+            <div class="col-6">
+                <form method="GET" class="row gx-3 gy-2 align-items-center justify-content-center">
+                    <div class="col-sm-3 d-flex align-items-center">
+                        <label>Voto:</label>
+                        <input type="number" class="form-control" name="voto" id="specificSizeInputName" placeholder="...">
+                    </div>
+
+
+                    <div class="col-auto">
+                        <div class="form-check">
+                            <input class="form-check-input" name="isParcheggio" type="checkbox" id="autoSizingCheck2">
+                            <label class="form-check-label" for="autoSizingCheck2">
+                                Parcheggio
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <button class="btn btn-primary">Cerca</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
         <div class="row row-cols-1 row-cols-md-3 g-4">
-        <?php foreach($hotels as $hotel){ ?>
-            <div class="col">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <h5 class="card-title"><?php echo $hotel["name"] ?></h5>
-                        <p class="card-text"><?php echo $hotel["description"] ?></p>
-                        <ul>
-                            <li>Voto: <?php echo $hotel['vote'] ?></li>
-                            <li>Parcheggio: <?php echo $hotel['parking']? "Si" : "No"  ?></li>
-                            <li>Distanza dal centro: <?php echo $hotel['distance_to_center'] ?> km</li>
-                        </ul>
+            <?php foreach ($filteredList as $hotel) { ?>
+                <div class="col">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title"><?php echo $hotel["name"] ?></h5>
+                            <p class="card-text"><?php echo $hotel["description"] ?></p>
+                            <ul>
+                                <li>Voto: <?php echo $hotel['vote'] ?></li>
+                                <li>Parcheggio: <?php echo $hotel['parking'] ? "Si" : "No"  ?></li>
+                                <li>Distanza dal centro: <?php echo $hotel['distance_to_center'] ?> km</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
-            </div>
             <?php } ?>
         </div>
     </div>
