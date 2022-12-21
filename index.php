@@ -111,7 +111,7 @@ foreach ($hotels as $hotel) {
 
                     <div class="col-auto">
                         <div class="form-check">
-                            <input class="form-check-input " name="isParcheggio" type="checkbox" id="autoSizingCheck2" <?php  if(!empty($_GET["isParcheggio"]))echo "checked" ?> >
+                            <input class="form-check-input " name="isParcheggio" type="checkbox" id="autoSizingCheck2" <?php  echo (!empty($_GET["isParcheggio"])) ? "checked" : "" ?> >
                             <label class="form-check-label" for="autoSizingCheck2">
                                 Parcheggio
                             </label>
